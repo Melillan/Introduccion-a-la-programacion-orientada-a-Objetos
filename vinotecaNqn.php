@@ -1,8 +1,5 @@
 <?php 
-/* 
- abc
- */
-/**
+/** Función utilizada para calcular la cantidad de botellas total
 * @param array $cantBotellasVino
 * @return array 
 */
@@ -15,7 +12,7 @@ function cantidadBotellas($cantBotellasVino){
     $estadisticaVinosBotellas = ["cantidad" => $sumaCantidad];
     return $estadisticaVinosBotellas;
 }
-/**
+/** Función utilizada para calcular el promedio de precios de las distintas variedades de un vino
 * @param array $precioUnidadVino
 * @return array 
 */
@@ -30,6 +27,10 @@ function precioPromedio($precioUnidadVino){
     $estadisticaVinosPrecio = ["precio" => $promedioRedondeado];
     return $estadisticaVinosPrecio;
 }
+/** Función main donde se realiza la estructura de arreglo y se ejecuta el bucle repetitivo 
+ * para interactuar con el usuario y arrojar los datos pertinentes. 
+ * @param array $vinitos
+ */
 function main(){
     $vinitos = array();
     $vinitos ["Malbec"] = array(
