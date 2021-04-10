@@ -1,14 +1,13 @@
 <?php
-include_once "Teatro.php";
+include "Teatro.php";
+include_once "Funciones.php";
 function menuOpciones(){
+             // Menú de opciones
              echo "\n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Escoja una opción: ‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮  \n";
-             echo "│ 1. Ver la funcion de estreno.                    │\n";
-             echo "│ 2. Ver otras funciones del día.                  │\n";
-             echo "│ 3. Cambiar nombre del teatro.                    │\n";
-             echo "│ 4. Crear 4 funciónes.                            │\n";
-             echo "│ 5. Modificar funciones.                          │\n";
-             echo "│ 6. Ver las funciones creadas.                    │\n";
-             echo "│ 7. Ver todas las funciones.                      │\n";
+             echo "│ 1. Cambiar nombre del teatro.                    │\n";
+             echo "│ 2. Cargar Funcion del teatro.                    │\n";
+             echo "│ 3. Modificar funciones.                          │\n";
+             echo "│ 4. Ver las funciones.                            │\n";
              echo "│ 0. Salir.                                        │\n";
              echo "╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
              // Ingreso y lectura de la opcion
@@ -19,11 +18,38 @@ function menuOpciones(){
              return $respuesta;
 }
 
-$teatro = new Teatro("", "","", 0);
-$funcion1 = new Teatro("La Casa de la Cultura", "9 de Julio, General Roca","Kimetsu no Yaiba", 3000);
-$funcion2 = new Teatro("La Casa de la Cultura", "9 de Julio, General Roca","Jujutsu Kaisen", 2500);
-$funcion3 = new Teatro("La Casa de la Cultura", "9 de Julio, General Roca","Shingeki No Kyojin", 3500);
-$funcion4 = new Teatro("La Casa de la Cultura", "9 de Julio, General Roca","Haikyuu", 2000);
+$funcionNueva = new Funciones("Kimetsu no Yaiba", ["hs"=>"20", "min"=>"00"], ["hs"=>"3", "min"=>"00"], "3000");
+$funcionesArreglo = array($funcionNueva);
+$teatro = new Teatro("La Casa de la Cultura", "25 de Mayo, General Roca", $funcionesArreglo);
+
+function tiempo(){
+             do{
+                          $valida = true;
+                          echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                          echo "│ Ingrese las horas:                                          │";
+                          echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                          $horas = trim(fgets(STDIN));
+                          if ($horas >= 0 && $horas <= 23){
+                                       echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                       echo "│ Ingrese los minutos:                                        │";
+                                       echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                       $minutos = trim(fgets(STDIN));
+                                       if ($minutos >= 0 && $minutos <= 60){
+                                                    $valida = false;
+                                                    $tiempo = ["hs"=> $horas, "min"=> $minutos];
+                                       }else{
+                                                    echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                                    echo "│ Los minutos no son validos.                                 │";
+                                                    echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                       }
+                          }else{
+                                       echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                       echo "│ Las horas no son validas.                                   │";
+                                       echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                          }
+             } while ($valida);
+             return $tiempo;
+}
 
 do{
              $respuesta = menuOpciones();
@@ -34,46 +60,42 @@ do{
                                        echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
                                        break;
                           case 1:
-                                       echo $funcion1;
+                                       echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                       echo "│ Ingrese nombre del teatro:                                  │";
+                                       echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                       $nombreNuevo = trim(fgets(STDIN));
+                                       echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                       echo "│ Ingrese direccion del teatro:                               │";
+                                       echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                       $direccionNueva = trim(fgets(STDIN));
+                                       echo $teatro->cambioNombre_Direccion($nombreNuevo, $direccionNueva)."\n";
                                        break;
-                          case 2: 
-                                       do {
-                                                    echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
-                                                    echo "│ ¿De qué función desea obtener información? 2/3/4            │";
-                                                    echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
-                                                    $informacion = (int) trim(fgets(STDIN));
-                                                    if ($informacion == 2){
-                                                    echo $funcion2;
-                                                    }elseif($informacion == 3){
-                                                                 echo $funcion3;
-                                                    }elseif($informacion == 4){
-                                                                 echo $funcion4;
-                                                    }
-                                                    echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
-                                                    echo "│ ¿Desea ver otra función? si / no                            │";
-                                                    echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
-                                                    $informacion = trim(fgets(STDIN));
-                                       }while ($informacion == "si");
-                                       break;
-                          case 3:
-                                       echo $teatro->cambioNombre_Direccion("Broadway","Avenida Broadway, 350")."\n";
-                                       break;
-                          case 4:
-                                       $funcionCreada = 1;
-                                       while ($funcionCreada <= 4) {
+                          case 2:
+                                       $arrayFuncionNueva = $teatro->getObjetoFuncion();  
+                                       $contador = count($arrayFuncionNueva);
+                                       while ($contador <=3){
                                                     echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
                                                     echo "│ Nombre de la función:                                       │";
                                                     echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
-                                                    $nombreCreado = trim(fgets(STDIN));
+                                                    $nombreFuncion = trim(fgets(STDIN));
+                                                    echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                                    echo "│ Horario de inicio de la función:                            │";
+                                                    echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                                    $horarioInicio = tiempo();
+                                                    $teatro->horario($horarioInicio);
+                                                    echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                                    echo "│ Duracion de la función:                                     │";
+                                                    echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                                    $duracionFuncion = tiempo();
                                                     echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
                                                     echo "│ Precio de la función:                                       │";
                                                     echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
-                                                    $precioCreado = (int)trim(fgets(STDIN));
-                                                    echo $teatro->funcionNueva($nombreCreado, $precioCreado, $funcionCreada);
-                                                    $funcionCreada++;
+                                                    $precioFuncion = trim(fgets(STDIN));
+                                                    echo $teatro->cargarFunciones($nombreFuncion,$horarioInicio, $duracionFuncion, $precioFuncion)."\n";
+                                                    $contador++;
                                        }
                                        break;
-                          case 5:   
+                          case 3:   
                                        echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
                                        echo "│ ¿Desea modificar una sola función o todas? si / no          │";
                                        echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
@@ -87,7 +109,7 @@ do{
                                                     echo "│ ➸ Cuarto turno (4).                                         │";
                                                     echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
                                                     $turno = (int) trim(fgets(STDIN));
-                                                    $teatro->funcionNuevaPrecio($modificacion, $turno,"Re:ZERO -Starting Life in Another World- ", 4000)."\n";
+                                                    $teatro->funcionNuevaPrecio($modificacion, $turno,"Re:ZERO -Starting Life in Another World- ", ["hs"=>"16", "min"=>"00"], ["hs"=>"3", "min"=>"00"], "4000")."\n";
                                        }else{
                                                     $auxiliarTurnos = 1;
                                                     while($auxiliarTurnos <= 4){
@@ -96,23 +118,25 @@ do{
                                                                  echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
                                                                  $nombreFuncionModificada = trim(fgets(STDIN));
                                                                  echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                                                 echo "│ Horario de inicio de la función: ".$auxiliarTurnos."                          │";
+                                                                 echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                                                 $horarioFuncionModificada = tiempo();
+                                                                 $teatro->horario($horarioFuncionModificada);
+                                                                 echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
+                                                                 echo "│ Duracion de la función: ".$auxiliarTurnos."                                   │";
+                                                                 echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
+                                                                 $duracionFuncionModificada = tiempo();
+                                                                 echo " \n╭‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╮\n";
                                                                  echo "│ Precio de la función: ".$auxiliarTurnos."                                     │";
                                                                  echo " \n╰‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐‐╯\n";
                                                                  $precioFuncionModificada = trim(fgets(STDIN));
-                                                                 $teatro->funcionNuevaPrecio($modificacion, $auxiliarTurnos, $nombreFuncionModificada, $precioFuncionModificada ) ."\n";
+                                                                 $teatro->funcionNuevaPrecio($modificacion, $auxiliarTurnos, $nombreFuncionModificada, $horarioFuncionModificada, $duracionFuncionModificada, $precioFuncionModificada ) ."\n";
                                                                  $auxiliarTurnos++;
                                                     }
                                        }
                                        break;
-                          case 6:
-                                       echo $teatro;
+                          case 4:
+                                       print_r ($teatro);
                                        break;
-                          case 7: 
-                                       $teatro->verDatosFunciones();
-                                       $funcion1->verDatosFunciones();
-                                       $funcion2->verDatosFunciones();
-                                       $funcion3->verDatosFunciones();
-                                       $funcion4->verDatosFunciones();
-                                       break;           
-             }
+                          }
 }while($respuesta != 0);
